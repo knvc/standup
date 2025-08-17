@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 function Project({id, name, updateProjectName, deleteProject}) {
     const [isEditing, setIsEditing] = useState(false);
-    const [nameInput, setNameInput] = useState(false);
+    const [nameInput, setNameInput] = useState('');
 
     function handleEdit() {
         setIsEditing(true);

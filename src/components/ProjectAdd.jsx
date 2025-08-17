@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 function ProjectAdd({addProjectName}) {
     const [isEditing, setIsEditing] = useState(false);
-    const [nameInput, setNameInput] = useState(false);
+    const [nameInput, setNameInput] = useState('');
 
     function handleEdit() {
         setIsEditing(true);

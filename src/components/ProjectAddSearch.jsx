@@ -1,13 +1,15 @@
 import {Fragment, useState} from 'react'
+import project from "./Project.jsx";
 
 function ProjectAddSearch({addProjectName}) {
     const [isEditing, setIsEditing] = useState(false);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [nameInput, setNameInput] = useState('');
+    const [urlInput, setUrlInput] = useState(null);
     const options = [
-        { name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
-        { name: '#10134 logo OKV op de website bij de partners datum', url: 'https://gitlab.com/3sign/support/-/issues/10134' },
-        { name: '#246 Datumformaat weergeven', url: 'https://gitlab.com/3sign/clients/agentschap-justitie-en-handhaving/arrestendatabank/-/issues/246' }
+        { id: 3, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
+        { id: 4, name: '#10134 logo OKV op de website bij de partners datum', url: 'https://gitlab.com/3sign/support/-/issues/10134' },
+        { id: 5, name: '#246 Datumformaat weergeven', url: 'https://gitlab.com/3sign/clients/agentschap-justitie-en-handhaving/arrestendatabank/-/issues/246' }
     ];
 
     function handleEdit() {
@@ -21,22 +23,21 @@ function ProjectAddSearch({addProjectName}) {
     function handleSave() {
         setIsEditing(false);
         if (nameInput !== '') {
-            addProjectName(nameInput);
+            addProjectName({ name: nameInput, url: urlInput });
         }
+        setNameInput('');
+        setUrlInput(null);
     }
 
     function handleChange(targetInput) {
         setNameInput(targetInput);
-
-        if (targetInput.length >= 3) {
-            setIsDropdownVisible(true);
-        } else {
-            setIsDropdownVisible(false);
-        }
+        setUrlInput(null);
+        setIsDropdownVisible(targetInput.length >= 3);
     }
 
-    function handleSelect(item) {
-        setNameInput(item);
+    function handleSelect(project) {
+        setNameInput(project.name);
+        setUrlInput(project.url);
         setIsDropdownVisible(false);
     }
 
@@ -54,15 +55,15 @@ function ProjectAddSearch({addProjectName}) {
                             <div className="dropdown">
                                 <ul>
                                     {options
-                                        .filter((item) =>
-                                            item.name.toLowerCase().includes(nameInput.toLowerCase())
+                                        .filter((project) =>
+                                            project.name.toLowerCase().includes(nameInput.toLowerCase())
                                         )
-                                        .map((item, idx) => (
+                                        .map((project, idx) => (
                                             <li
                                                 key={idx}
-                                                onClick={() => handleSelect(item.name)}
+                                                onClick={() => handleSelect(project)}
                                             >
-                                                {item.name}
+                                                {project.name}
                                             </li>
                                         ))}
                                 </ul>

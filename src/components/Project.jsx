@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function Project({id, name, updateProjectName, deleteProject}) {
+function Project({id, name, url, updateProjectName, deleteProject}) {
     const [isEditing, setIsEditing] = useState(false);
     const [nameInput, setNameInput] = useState('');
 
@@ -33,7 +33,7 @@ function Project({id, name, updateProjectName, deleteProject}) {
                 </span>
                 </div>
             ) : (
-                <div>{name}
+                <div><a href={url} target="_blank">{name}</a>
                     <button onClick={handleEdit}>edit</button>
                     <button onClick={handleDelete}>delete</button>
                 </div>

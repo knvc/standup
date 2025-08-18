@@ -20,7 +20,7 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
     function handleSave() {
         setIsEditing(false);
         if (nameInput !== '') {
-            updateProjectName(id, nameInput);
+            updateProjectName({id: id, name: nameInput, url: null});
         }
     }
 

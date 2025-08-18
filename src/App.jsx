@@ -2,6 +2,7 @@ import {Fragment, useState} from 'react'
 import './App.css'
 import Project from "./components/Project.jsx";
 import ProjectAdd from "./components/ProjectAdd.jsx";
+import ProjectAddSearch from "./components/ProjectAddSearch.jsx";
 
 function App() {
   const [projectList, setProjectList] = useState([
@@ -25,6 +26,7 @@ function App() {
   }
 
   function handleAddProjectName(targetName) {
+      // @todo find a way to get highest Id since sorting will take place in a later stadium
       const projectListLastId = projectList[projectList.length-1].id;
       const updatedProjects = [...projectList, { id: projectListLastId+1, name: targetName }];
       setProjectList(updatedProjects);
@@ -45,7 +47,7 @@ function App() {
                     deleteProject={handleDeleteProject}
                 />
             ))}
-            <ProjectAdd
+            <ProjectAddSearch
                 addProjectName={handleAddProjectName}
             />
         </main>

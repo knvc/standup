@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+
+.search-field {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  background: azure;
+  padding: 10px;
+}

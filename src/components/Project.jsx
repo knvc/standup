@@ -1,15 +1,19 @@
-import { useState } from 'react'
+import {Fragment, useState} from 'react'
+import ProjectView from "./ProjectView.jsx";
 
 function Project({id, name, url, updateProjectName, deleteProject}) {
     const [isEditing, setIsEditing] = useState(false);
-    const [nameInput, setNameInput] = useState('');
+    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+    const [nameInput, setNameInput] = useState(name);
+    const [urlInput, setUrlInput] = useState(url);
+    const options = [
+        { id: 3, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
+        { id: 4, name: '#10134 logo OKV op de website bij de partners datum', url: 'https://gitlab.com/3sign/support/-/issues/10134' },
+        { id: 5, name: '#246 Datumformaat weergeven', url: 'https://gitlab.com/3sign/clients/agentschap-justitie-en-handhaving/arrestendatabank/-/issues/246' }
+    ];
 
     function handleEdit() {
         setIsEditing(true);
-    }
-
-    function handleCancel() {
-        setIsEditing(false);
     }
 
     function handleDelete() {
@@ -17,26 +21,66 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
         deleteProject(id);
     }
 
+    function handleCancel() {
+        setIsEditing(false);
+    }
+
     function handleSave() {
         setIsEditing(false);
         if (nameInput !== '') {
-            updateProjectName({id: id, name: nameInput, url: null});
+            updateProjectName({id: id, name: nameInput, url: urlInput});
         }
+    }
+
+    function handleChange(targetInput) {
+        setNameInput(targetInput);
+        setIsDropdownVisible(targetInput.length >= 3);
+    }
+
+    function handleSelect(project) {
+        setNameInput(project.name);
+        setUrlInput(project.url);
+        setIsDropdownVisible(false);
     }
 
     return (
         <>
             {isEditing ? (
-                <div><span><input type="text" defaultValue={name} onChange={(e) => setNameInput(e.target.value)} autoFocus />
-                <button onClick={handleSave}>save</button>
-                <button onClick={handleCancel}>cancel</button>
-                </span>
-                </div>
+                <Fragment>
+                    <div>
+                        <div className="search-field">
+                            <input type="text" value={nameInput} defaultValue={nameInput} onChange={(e) => handleChange(e.target.value)} autoFocus />
+                            <button onClick={handleSave}>save</button>
+                            <button onClick={handleCancel}>cancel</button>
+                        </div>
+                        { isDropdownVisible && (
+                            <div className="dropdown">
+                                <ul>
+                                    {options
+                                        .filter((project) =>
+                                            project.name.toLowerCase().includes(nameInput.toLowerCase())
+                                        )
+                                        .map((project, idx) => (
+                                            <li
+                                                key={idx}
+                                                onClick={() => handleSelect(project)}
+                                            >
+                                                {project.name}
+                                            </li>
+                                        ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                </Fragment>
             ) : (
-                <div><a href={url} target="_blank">{name}</a>
-                    <button onClick={handleEdit}>edit</button>
-                    <button onClick={handleDelete}>delete</button>
-                </div>
+                <ProjectView
+                    id={id}
+                    name={name}
+                    url={url}
+                    editProject={handleEdit}
+                    deleteProject={handleDelete}
+                />
             )}
         </>
     )

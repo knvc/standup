@@ -34,9 +34,6 @@ function App() {
 
     return (
     <>
-        <header>
-            <h1>Projects</h1>
-        </header>
         <main>
             { projectList.map(project => (
                 <Project

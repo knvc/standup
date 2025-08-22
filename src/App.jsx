@@ -2,7 +2,6 @@ import {Fragment, useState} from 'react'
 import './App.css'
 import Project from "./components/Project.jsx";
 import ProjectAdd from "./components/ProjectAdd.jsx";
-import ProjectAddSearch from "./components/ProjectAddSearch.jsx";
 
 function App() {
   const [projectList, setProjectList] = useState([
@@ -45,7 +44,7 @@ function App() {
                     deleteProject={handleDeleteProject}
                 />
             ))}
-            <ProjectAddSearch
+            <ProjectAdd
                 addProjectName={handleAddProjectName}
             />
         </main>

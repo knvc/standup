@@ -1,7 +1,6 @@
 import {Fragment, useState} from 'react'
-import project from "./Project.jsx";
 
-function ProjectAddSearch({addProjectName}) {
+function ProjectAdd({addProjectName}) {
     const [isEditing, setIsEditing] = useState(false);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [nameInput, setNameInput] = useState('');
@@ -80,4 +79,4 @@ function ProjectAddSearch({addProjectName}) {
     )
 }
 
-export default ProjectAddSearch
+export default ProjectAdd

@@ -66,3 +66,13 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+input {
+  padding: 10px;
+  width: 450px;
+}
+
+a {
+  display: inline-block;
+  width: 500px;
+}

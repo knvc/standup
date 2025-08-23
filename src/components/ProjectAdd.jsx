@@ -41,6 +41,18 @@ function ProjectAdd({addProjectName}) {
         setIsDropdownVisible(false);
     }
 
+    const filteredOptions = options.filter(project =>
+        project.name.toLowerCase().includes(nameInput.toLowerCase())
+    );
+
+    let containsFilteredOptions = filteredOptions.length > 0;
+
+    const dropdownList = filteredOptions.map((project) => (
+        <li key={project.id} onClick={() => handleSelect(project)}>
+            {project.name}
+        </li>
+    ));
+
     return (
         <>
             {isEditing ? (
@@ -51,21 +63,10 @@ function ProjectAdd({addProjectName}) {
                             <button onClick={handleSave}>save</button>
                             <button onClick={handleCancel}>cancel</button>
                         </div>
-                        { isDropdownVisible && (
+                        { isDropdownVisible && containsFilteredOptions && (
                             <div className="dropdown">
                                 <ul>
-                                    {options
-                                        .filter((project) =>
-                                            project.name.toLowerCase().includes(nameInput.toLowerCase())
-                                        )
-                                        .map((project, idx) => (
-                                            <li
-                                                key={idx}
-                                                onClick={() => handleSelect(project)}
-                                            >
-                                                {project.name}
-                                            </li>
-                                        ))}
+                                    { dropdownList }
                                 </ul>
                             </div>
                         )}

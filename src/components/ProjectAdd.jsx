@@ -14,8 +14,8 @@ function ProjectAdd({addProjectName}) {
         <>
             {isEditing ? (
                 <ProjectEdit
-                    id={0}
-                    name={''}
+                    id={null}
+                    name={null}
                     url={null}
                     saveEditProject={handleSave}
                     cancelEditProject={() => setIsEditing(false)}

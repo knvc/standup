@@ -2,7 +2,7 @@ import {useState} from "react";
 
 function ProjectEdit({id, name, url, saveEditProject, cancelEditProject}) {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-    const [nameInput, setNameInput] = useState(name);
+    const [nameInput, setNameInput] = useState(name ?? '');
     const [urlInput, setUrlInput] = useState(url);
     const options = [
         { id: 3, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },

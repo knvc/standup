@@ -12,17 +12,9 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
         { id: 5, name: '#246 Datumformaat weergeven', url: 'https://gitlab.com/3sign/clients/agentschap-justitie-en-handhaving/arrestendatabank/-/issues/246' }
     ];
 
-    function handleEdit() {
-        setIsEditing(true);
-    }
-
     function handleDelete() {
         setIsEditing(false);
         deleteProject(id);
-    }
-
-    function handleCancel() {
-        setIsEditing(false);
     }
 
     function handleSave() {
@@ -49,9 +41,9 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
                 <Fragment>
                     <div>
                         <div className="search-field">
-                            <input type="text" value={nameInput} defaultValue={nameInput} onChange={(e) => handleChange(e.target.value)} autoFocus />
+                            <input type="text" value={nameInput} onChange={(e) => handleChange(e.target.value)} autoFocus />
                             <button onClick={handleSave}>save</button>
-                            <button onClick={handleCancel}>cancel</button>
+                            <button onClick={() => setIsEditing(false)}>cancel</button>
                         </div>
                         { isDropdownVisible && (
                             <div className="dropdown">
@@ -75,10 +67,9 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
                 </Fragment>
             ) : (
                 <ProjectView
-                    id={id}
                     name={name}
                     url={url}
-                    editProject={handleEdit}
+                    editProject={() => setIsEditing(true)}
                     deleteProject={handleDelete}
                 />
             )}

@@ -1,7 +1,11 @@
-function ProjectView({id, name, url, editProject, deleteProject}) {
+function ProjectView({name, url, editProject, deleteProject}) {
     return (
         <div>
-            <a target="_blank" href={url}>{name}</a>
+            {url ? (
+                <a target="_blank" href={url}>{name}</a>
+            ) : (
+                <span>{name}</span>
+            )}
             <button onClick={() => editProject()}>edit</button>
             <button onClick={() => deleteProject()}>delete</button>
         </div>

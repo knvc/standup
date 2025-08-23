@@ -72,7 +72,8 @@ input {
   width: 450px;
 }
 
-a {
+a,
+span {
   display: inline-block;
   width: 500px;
 }

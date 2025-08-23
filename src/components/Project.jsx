@@ -35,36 +35,35 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
         setIsDropdownVisible(false);
     }
 
+    const filteredOptions = options.filter(project =>
+        project.name.toLowerCase().includes(nameInput.toLowerCase())
+    );
+
+    let containsFilteredOptions = filteredOptions.length > 0;
+
+    const dropdownList = filteredOptions.map((project) => (
+        <li key={project.id} onClick={() => handleSelect(project)}>
+            {project.name}
+        </li>
+    ));
+
     return (
-        <>
-            {isEditing ? (
-                <Fragment>
-                    <div>
-                        <div className="search-field">
-                            <input type="text" value={nameInput} onChange={(e) => handleChange(e.target.value)} autoFocus />
-                            <button onClick={handleSave}>save</button>
-                            <button onClick={() => setIsEditing(false)}>cancel</button>
-                        </div>
-                        { isDropdownVisible && (
-                            <div className="dropdown">
-                                <ul>
-                                    {options
-                                        .filter((project) =>
-                                            project.name.toLowerCase().includes(nameInput.toLowerCase())
-                                        )
-                                        .map((project, idx) => (
-                                            <li
-                                                key={idx}
-                                                onClick={() => handleSelect(project)}
-                                            >
-                                                {project.name}
-                                            </li>
-                                        ))}
-                                </ul>
-                            </div>
-                        )}
+        <Fragment>
+            { isEditing ? (
+                <div>
+                    <div className="search-field">
+                        <input type="text" value={nameInput} onChange={(e) => handleChange(e.target.value)} autoFocus />
+                        <button onClick={handleSave}>save</button>
+                        <button onClick={() => setIsEditing(false)}>cancel</button>
                     </div>
-                </Fragment>
+                    { isDropdownVisible && containsFilteredOptions && (
+                        <div className="dropdown">
+                            <ul>
+                                { dropdownList }
+                            </ul>
+                        </div>
+                    )}
+                </div>
             ) : (
                 <ProjectView
                     name={name}
@@ -73,7 +72,7 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
                     deleteProject={handleDelete}
                 />
             )}
-        </>
+        </Fragment>
     )
 }
 

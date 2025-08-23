@@ -17,6 +17,7 @@ function ProjectAdd({addProjectName}) {
 
     function handleCancel() {
         setIsEditing(false);
+        setIsDropdownVisible(false);
     }
 
     function handleSave() {
@@ -26,6 +27,7 @@ function ProjectAdd({addProjectName}) {
         }
         setNameInput('');
         setUrlInput(null);
+        setIsDropdownVisible(false);
     }
 
     function handleChange(targetInput) {

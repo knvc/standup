@@ -1,81 +1,27 @@
 import {Fragment, useState} from 'react'
+import ProjectEdit from "./ProjectEdit.jsx";
 
 function ProjectAdd({addProjectName}) {
     const [isEditing, setIsEditing] = useState(false);
-    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-    const [nameInput, setNameInput] = useState('');
-    const [urlInput, setUrlInput] = useState(null);
-    const options = [
-        { id: 3, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
-        { id: 4, name: '#10134 logo OKV op de website bij de partners datum', url: 'https://gitlab.com/3sign/support/-/issues/10134' },
-        { id: 5, name: '#246 Datumformaat weergeven', url: 'https://gitlab.com/3sign/clients/agentschap-justitie-en-handhaving/arrestendatabank/-/issues/246' }
-    ];
 
-    function handleEdit() {
-        setIsEditing(true);
-    }
-
-    function handleCancel() {
+    function handleSave(project) {
+        console.log(project);
         setIsEditing(false);
-        setIsDropdownVisible(false);
+        addProjectName({name: project.name, url: project.url});
     }
-
-    function handleSave() {
-        setIsEditing(false);
-        if (nameInput !== '') {
-            addProjectName({ name: nameInput, url: urlInput });
-        }
-        setNameInput('');
-        setUrlInput(null);
-        setIsDropdownVisible(false);
-    }
-
-    function handleChange(targetInput) {
-        setNameInput(targetInput);
-        setIsDropdownVisible(targetInput.length >= 3);
-    }
-
-    function handleSelect(project) {
-        setNameInput(project.name);
-        setUrlInput(project.url);
-        setIsDropdownVisible(false);
-    }
-
-    const filteredOptions = options.filter(project =>
-        project.name.toLowerCase().includes(nameInput.toLowerCase())
-    );
-
-    let containsFilteredOptions = filteredOptions.length > 0;
-
-    const dropdownList = filteredOptions.map((project) => (
-        <li key={project.id} onClick={() => handleSelect(project)}>
-            {project.name}
-        </li>
-    ));
 
     return (
         <>
             {isEditing ? (
-                <Fragment>
-                    <div>
-                        <div className="search-field">
-                            <input type="text" value={nameInput} onChange={(e) => handleChange(e.target.value)} autoFocus />
-                            <button onClick={handleSave}>save</button>
-                            <button onClick={handleCancel}>cancel</button>
-                        </div>
-                        { isDropdownVisible && containsFilteredOptions && (
-                            <div className="dropdown">
-                                <ul>
-                                    { dropdownList }
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-                </Fragment>
+                <ProjectEdit
+                    id={0}
+                    name={''}
+                    url={null}
+                    saveEditProject={handleSave}
+                    cancelEditProject={() => setIsEditing(false)}
+                />
             ) : (
-                <div>{name}
-                    <button onClick={handleEdit}>add item</button>
-                </div>
+                <button onClick={() => setIsEditing(true)}>add item</button>
             )}
         </>
     )

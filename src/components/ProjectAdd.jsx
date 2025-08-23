@@ -30,7 +30,6 @@ function ProjectAdd({addProjectName}) {
 
     function handleChange(targetInput) {
         setNameInput(targetInput);
-        setUrlInput(null);
         setIsDropdownVisible(targetInput.length >= 3);
     }
 

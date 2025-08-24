@@ -1,13 +1,12 @@
 import {Fragment, useState} from 'react'
 import IssueEdit from "./IssueEdit.jsx";
 
-function IssueAdd({addProjectName}) {
+function IssueAdd({addIssue}) {
     const [isEditing, setIsEditing] = useState(false);
 
     function handleSave(project) {
-        console.log(project);
         setIsEditing(false);
-        addProjectName({name: project.name, url: project.url});
+        addIssue({name: project.name, url: project.url});
     }
 
     return (
@@ -17,8 +16,8 @@ function IssueAdd({addProjectName}) {
                     id={null}
                     name={null}
                     url={null}
-                    saveEditProject={handleSave}
-                    cancelEditProject={() => setIsEditing(false)}
+                    onClickSave={handleSave}
+                    onClickCancel={() => setIsEditing(false)}
                 />
             ) : (
                 <button onClick={() => setIsEditing(true)}>add item</button>

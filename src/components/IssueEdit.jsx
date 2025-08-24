@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function IssueEdit({id, name, url, saveEditProject, cancelEditProject}) {
+function IssueEdit({id, name, url, onClickSave, onClickCancel}) {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [nameInput, setNameInput] = useState(name ?? '');
     const [urlInput, setUrlInput] = useState(url);
@@ -12,7 +12,7 @@ function IssueEdit({id, name, url, saveEditProject, cancelEditProject}) {
 
     function handleSave() {
         if (nameInput !== '') {
-            saveEditProject({id: id, name: nameInput, url: urlInput});
+            onClickSave({id: id, name: nameInput, url: urlInput});
         }
     }
 
@@ -44,7 +44,7 @@ function IssueEdit({id, name, url, saveEditProject, cancelEditProject}) {
             <div className="search-field">
                 <input type="text" value={nameInput} onChange={(e) => handleChange(e.target.value)} autoFocus />
                 <button onClick={handleSave}>save</button>
-                <button onClick={() => cancelEditProject()}>cancel</button>
+                <button onClick={() => onClickCancel()}>cancel</button>
             </div>
             { isDropdownVisible && containsFilteredOptions && (
                 <div className="dropdown">

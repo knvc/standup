@@ -44,12 +44,12 @@ function App() {
                     id={project.id}
                     name={project.name}
                     url={project.url}
-                    updateProjectName={handleUpdateProjectName}
-                    deleteProject={handleDeleteProject}
+                    updateIssue={handleUpdateProjectName}
+                    deleteIssue={handleDeleteProject}
                 />
             ))}
             <IssueAdd
-                addProjectName={handleAddProjectName}
+                addIssue={handleAddProjectName}
             />
         </main>
     </>

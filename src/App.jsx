@@ -1,7 +1,7 @@
 import {Fragment, useState} from 'react'
 import './App.css'
-import Project from "./components/Project.jsx";
-import ProjectAdd from "./components/ProjectAdd.jsx";
+import Issue from "./components/Issue.jsx";
+import IssueAdd from "./components/IssueAdd.jsx";
 
 function App() {
   const [projectList, setProjectList] = useState([
@@ -39,7 +39,7 @@ function App() {
     <>
         <main>
             { projectList.map(project => (
-                <Project
+                <Issue
                     key={project.id}
                     id={project.id}
                     name={project.name}
@@ -48,7 +48,7 @@ function App() {
                     deleteProject={handleDeleteProject}
                 />
             ))}
-            <ProjectAdd
+            <IssueAdd
                 addProjectName={handleAddProjectName}
             />
         </main>

@@ -1,7 +1,7 @@
 import {Fragment, useState} from 'react'
-import ProjectEdit from "./ProjectEdit.jsx";
+import IssueEdit from "./IssueEdit.jsx";
 
-function ProjectAdd({addProjectName}) {
+function IssueAdd({addProjectName}) {
     const [isEditing, setIsEditing] = useState(false);
 
     function handleSave(project) {
@@ -13,7 +13,7 @@ function ProjectAdd({addProjectName}) {
     return (
         <>
             {isEditing ? (
-                <ProjectEdit
+                <IssueEdit
                     id={null}
                     name={null}
                     url={null}
@@ -27,4 +27,4 @@ function ProjectAdd({addProjectName}) {
     )
 }
 
-export default ProjectAdd
+export default IssueAdd

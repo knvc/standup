@@ -1,4 +1,4 @@
-function ProjectView({name, url, editProject, deleteProject}) {
+function IssueView({name, url, editProject, deleteProject}) {
     return (
         <div>
             {url ? (
@@ -12,4 +12,4 @@ function ProjectView({name, url, editProject, deleteProject}) {
     )
 }
 
-export default ProjectView
+export default IssueView

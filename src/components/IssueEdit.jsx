@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function ProjectEdit({id, name, url, saveEditProject, cancelEditProject}) {
+function IssueEdit({id, name, url, saveEditProject, cancelEditProject}) {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [nameInput, setNameInput] = useState(name ?? '');
     const [urlInput, setUrlInput] = useState(url);
@@ -57,4 +57,4 @@ function ProjectEdit({id, name, url, saveEditProject, cancelEditProject}) {
     )
 }
 
-export default ProjectEdit
+export default IssueEdit

@@ -1,8 +1,8 @@
 import {Fragment, useState} from 'react'
-import ProjectView from "./ProjectView.jsx";
-import ProjectEdit from "./ProjectEdit.jsx";
+import IssueView from "./IssueView.jsx";
+import IssueEdit from "./IssueEdit.jsx";
 
-function Project({id, name, url, updateProjectName, deleteProject}) {
+function Issue({id, name, url, updateProjectName, deleteProject}) {
     const [isEditing, setIsEditing] = useState(false);
 
     function handleDelete() {
@@ -18,7 +18,7 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
     return (
         <Fragment>
             { isEditing ? (
-                <ProjectEdit
+                <IssueEdit
                     id={id}
                     name={name}
                     url={url}
@@ -26,7 +26,7 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
                     cancelEditProject={() => setIsEditing(false)}
                 />
             ) : (
-                <ProjectView
+                <IssueView
                     name={name}
                     url={url}
                     editProject={() => setIsEditing(true)}
@@ -37,4 +37,4 @@ function Project({id, name, url, updateProjectName, deleteProject}) {
     )
 }
 
-export default Project
+export default Issue

@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function IssueEdit({id, name, url, onClickSave, onClickCancel}) {
+function IssueEdit({id, name, url, projectId, onClickSave, onClickCancel}) {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [nameInput, setNameInput] = useState(name ?? '');
     const [urlInput, setUrlInput] = useState(url);

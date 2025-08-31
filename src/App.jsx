@@ -6,7 +6,7 @@ import ProjectAdd from "./components/ProjectAdd.jsx";
 function App() {
   const [projectList, setProjectList] = useState([
       { id: 1, name: 'FEBEG', issues: [
-              { id: 1, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
+          { id: 1, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
               { id: 2, name: '#10134 logo OKV op de website bij de partners datum', url: 'https://gitlab.com/3sign/support/-/issues/10134' },
       ]},
       { id: 2, name: 'EHB', issues: [
@@ -24,10 +24,43 @@ function App() {
       setProjectList(updatedProjects);
   }
 
-  function handleDeleteProject(targetId) {
-      const updatedProjects = projectList.filter(p => p.id !== targetId);
-      setProjectList(updatedProjects);
+  function handleDeleteProject(projectId, issueId) {
+      if (!projectId && !issueId) {
+          return;
+      }
+
+      if (issueId) {
+          console.log(issueId);
+          deleteProjectByIssueId(projectId, issueId)
+          return;
+      }
+
+      deleteProjectById(projectId);
   }
+
+  function deleteProjectById(projectId) {
+      const updatedProjects = projectList.filter(p => p.id !== projectId);
+
+      if (updatedProjects) {
+          setProjectList(updatedProjects);
+      }
+  }
+
+    function deleteProjectByIssueId(projectId, issueId) {
+        const updatedProjects = projectList.map(project => {
+            if (project.id === projectId) {
+                return { ...project, issues : project.issues.filter(issue => issue.id !== issueId)};
+            } else {
+                return project;
+            }
+        });
+
+        console.log(updatedProjects);
+
+        if (updatedProjects) {
+            setProjectList(updatedProjects);
+        }
+    }
 
   function handleAddProjectName(targetProject) {
       // @todo find a way to get highest Id since sorting will take place in a later stadium
@@ -43,8 +76,8 @@ function App() {
                 <Project
                     key={project.id}
                     project={project}
-                    update={handleUpdateProject}
-                    delete={handleDeleteProject}
+                    updateProject={handleUpdateProject}
+                    deleteProject={handleDeleteProject}
                 />
             ))}
             <ProjectAdd

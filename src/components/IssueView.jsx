@@ -1,4 +1,4 @@
-function IssueView({name, url, onClickEdit, onClickDelete}) {
+function IssueView({id, name, url, projectId, onClickEdit, onClickDelete}) {
     return (
         <div>
             {url ? (
@@ -7,7 +7,7 @@ function IssueView({name, url, onClickEdit, onClickDelete}) {
                 <span>{name}</span>
             )}
             <button onClick={() => onClickEdit()}>edit</button>
-            <button onClick={() => onClickDelete()}>delete</button>
+            <button onClick={() => onClickDelete(projectId, id)}>delete</button>
         </div>
     )
 }

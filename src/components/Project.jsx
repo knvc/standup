@@ -1,19 +1,34 @@
 import {Fragment, useState} from 'react'
 import ProjectEdit from "./ProjectEdit.jsx";
 import ProjectView from "./ProjectView.jsx";
+import Issue from "./Issue.jsx";
 
 function Project({id, project, updateProject, deleteProject}) {
     const [isEditing, setIsEditing] = useState(false);
 
-    function handleDelete() {
+    function handleDeleteProject() {
         setIsEditing(false);
         deleteProject(project.id);
     }
 
-    function handleSave(project) {
+    function handleSaveProject(project) {
         setIsEditing(false);
         updateProject({id: project.id, name: project.name, url: project.url});
     }
+
+    function handleUpdateIssue() {
+
+    }
+
+    const projectIssues = project.issues.map(issue => (
+        <Issue
+            key={issue.id}
+            issue={issue}
+            projectId={project.id}
+            updateIssue={handleUpdateIssue}
+            deleteIssue={(projectId, issueId) => deleteProject(projectId, issueId)}
+        />
+    ))
 
     return (
         <Fragment>
@@ -22,7 +37,7 @@ function Project({id, project, updateProject, deleteProject}) {
                     id={id}
                     name={project.name}
                     url={project.url}
-                    onClickSave={handleSave}
+                    onClickSave={handleSaveProject}
                     onClickCancel={() => setIsEditing(false)}
                 />
             ) : (
@@ -30,9 +45,10 @@ function Project({id, project, updateProject, deleteProject}) {
                     name={project.name}
                     url={project.url}
                     onClickEdit={() => setIsEditing(true)}
-                    onClickDelete={handleDelete}
+                    onClickDelete={handleDeleteProject}
                 />
             )}
+            { projectIssues }
         </Fragment>
     )
 }

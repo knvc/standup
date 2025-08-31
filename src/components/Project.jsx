@@ -2,17 +2,17 @@ import {Fragment, useState} from 'react'
 import ProjectEdit from "./ProjectEdit.jsx";
 import ProjectView from "./ProjectView.jsx";
 
-function Project({id, name, url, updateIssue, deleteIssue}) {
+function Project({id, project, updateProject, deleteProject}) {
     const [isEditing, setIsEditing] = useState(false);
 
     function handleDelete() {
         setIsEditing(false);
-        deleteIssue(id);
+        deleteProject(project.id);
     }
 
     function handleSave(project) {
         setIsEditing(false);
-        updateIssue({id: project.id, name: project.name, url: project.url});
+        updateProject({id: project.id, name: project.name, url: project.url});
     }
 
     return (
@@ -20,15 +20,15 @@ function Project({id, name, url, updateIssue, deleteIssue}) {
             { isEditing ? (
                 <ProjectEdit
                     id={id}
-                    name={name}
-                    url={url}
+                    name={project.name}
+                    url={project.url}
                     onClickSave={handleSave}
                     onClickCancel={() => setIsEditing(false)}
                 />
             ) : (
                 <ProjectView
-                    name={name}
-                    url={url}
+                    name={project.name}
+                    url={project.url}
                     onClickEdit={() => setIsEditing(true)}
                     onClickDelete={handleDelete}
                 />

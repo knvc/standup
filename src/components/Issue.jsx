@@ -10,9 +10,9 @@ function Issue({issue, projectId, updateIssue, deleteIssue}) {
         deleteIssue(projectId, IssueId);
     }
 
-    function handleSave(project) {
+    function handleSave(issue) {
         setIsEditing(false);
-        updateIssue({id: project.id, name: project.name, url: project.url});
+        updateIssue(issue);
     }
 
     return (
@@ -22,7 +22,6 @@ function Issue({issue, projectId, updateIssue, deleteIssue}) {
                     id={issue.id}
                     name={issue.name}
                     url={issue.url}
-                    projectId={projectId}
                     onClickSave={handleSave}
                     onClickCancel={() => setIsEditing(false)}
                 />

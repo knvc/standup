@@ -3,7 +3,7 @@ import ProjectEdit from "./ProjectEdit.jsx";
 import ProjectView from "./ProjectView.jsx";
 import Issue from "./Issue.jsx";
 
-function Project({id, project, updateProject, deleteProject}) {
+function Project({project, updateProject, deleteProject}) {
     const [isEditing, setIsEditing] = useState(false);
 
     function handleDeleteProject() {
@@ -13,11 +13,13 @@ function Project({id, project, updateProject, deleteProject}) {
 
     function handleSaveProject(project) {
         setIsEditing(false);
-        updateProject({id: project.id, name: project.name, url: project.url});
+        updateProject(project);
     }
 
-    function handleUpdateIssue() {
-
+    function handleUpdateIssue(issue) {
+        setIsEditing(false);
+        console.log('handleUpdateIssue', issue);
+        //updateProject(project, project.id);
     }
 
     const projectIssues = project.issues.map(issue => (
@@ -34,7 +36,7 @@ function Project({id, project, updateProject, deleteProject}) {
         <Fragment>
             { isEditing ? (
                 <ProjectEdit
-                    id={id}
+                    id={project.id}
                     name={project.name}
                     url={project.url}
                     onClickSave={handleSaveProject}

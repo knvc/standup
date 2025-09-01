@@ -6,23 +6,50 @@ import ProjectAdd from "./components/ProjectAdd.jsx";
 function App() {
   const [projectList, setProjectList] = useState([
       { id: 1, name: 'FEBEG', issues: [
-          { id: 1, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
+              { id: 1, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
               { id: 2, name: '#10134 logo OKV op de website bij de partners datum', url: 'https://gitlab.com/3sign/support/-/issues/10134' },
-      ]},
+          ]},
       { id: 2, name: 'EHB', issues: [
               { id: 3, name: '#143 Fwd: FEBEG formulier', url: 'https://gitlab.com/3sign/clients/febeg/febeg-website-2023/-/issues/143' },
               { id: 4, name: '#10134 logo OKV op de website bij de partners datum', url: 'https://gitlab.com/3sign/support/-/issues/10134' },
-      ]}
+          ]}
   ]);
 
-  function handleUpdateProject(targetProject) {
-      const updatedProjects = projectList.map(project =>
-          project.id === targetProject.id
-              ? { ...project, name: targetProject.name, url: targetProject.url }
-              : project
-      );
-      setProjectList(updatedProjects);
-  }
+    function handleUpdateProject(data, projectId, issueId) {
+        // if (!projectId && !issueId) {
+        //     return;
+        // }
+        console.log(data, projectId, issueId);
+
+        if (issueId) {
+            updateProjectByIssueId(data, projectId, issueId)
+            return;
+        }
+
+        updateProjectById(data, projectId);
+    }
+
+    function updateProjectById(projectId) {
+        const updatedProjects = projectList.filter(p => p.id !== projectId);
+
+        if (updatedProjects) {
+            setProjectList(updatedProjects);
+        }
+    }
+
+    function updateProjectByIssueId(projectId, issueId) {
+        const updatedProjects = projectList.map(project => {
+            if (project.id === projectId) {
+                return { ...project, issues : project.issues.filter(issue => issue.id !== issueId)};
+            } else {
+                return project;
+            }
+        });
+
+        if (updatedProjects) {
+            setProjectList(updatedProjects);
+        }
+    }
 
   function handleDeleteProject(projectId, issueId) {
       if (!projectId && !issueId) {
@@ -30,7 +57,6 @@ function App() {
       }
 
       if (issueId) {
-          console.log(issueId);
           deleteProjectByIssueId(projectId, issueId)
           return;
       }
@@ -54,8 +80,6 @@ function App() {
                 return project;
             }
         });
-
-        console.log(updatedProjects);
 
         if (updatedProjects) {
             setProjectList(updatedProjects);

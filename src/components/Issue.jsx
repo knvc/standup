@@ -12,7 +12,7 @@ function Issue({issue, projectId, updateIssue, deleteIssue}) {
 
     function handleSave(issue) {
         setIsEditing(false);
-        updateIssue(issue);
+        updateIssue(projectId, issue);
     }
 
     return (

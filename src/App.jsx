@@ -2,6 +2,7 @@ import {Fragment, useState} from 'react'
 import './App.css'
 import Project from "./components/Project.jsx";
 import ProjectAdd from "./components/ProjectAdd.jsx";
+import {unstable_batchedUpdates} from "react-dom";
 
 function App() {
   const [projectList, setProjectList] = useState([
@@ -15,32 +16,32 @@ function App() {
           ]}
   ]);
 
-    function handleUpdateProject(data, projectId, issueId) {
-        // if (!projectId && !issueId) {
-        //     return;
-        // }
-        console.log(data, projectId, issueId);
+    function handleUpdateIssue(projectIdTarget, issueTarget) {
+        const updatedProjects = projectList.map(project => {
+            if (project.id === projectIdTarget) {
+                project.issues = project.issues.map(issue => {
+                    if (issue.id === issueTarget.id) {
+                        return { ...issue, name: issueTarget.name, url: issueTarget.url };
+                    } else {
+                        return issue;
+                    }
+                });
 
-        if (issueId) {
-            updateProjectByIssueId(data, projectId, issueId)
-            return;
-        }
-
-        updateProjectById(data, projectId);
-    }
-
-    function updateProjectById(projectId) {
-        const updatedProjects = projectList.filter(p => p.id !== projectId);
+                return project;
+            } else {
+                return project;
+            }
+        });
 
         if (updatedProjects) {
             setProjectList(updatedProjects);
         }
     }
 
-    function updateProjectByIssueId(projectId, issueId) {
+    function handleUpdateProject(projectTarget) {
         const updatedProjects = projectList.map(project => {
-            if (project.id === projectId) {
-                return { ...project, issues : project.issues.filter(issue => issue.id !== issueId)};
+            if (project.id === projectTarget.id) {
+                return { ...project, name: projectTarget.name, url: projectTarget.url };
             } else {
                 return project;
             }
@@ -101,6 +102,7 @@ function App() {
                     key={project.id}
                     project={project}
                     updateProject={handleUpdateProject}
+                    updateIssue={handleUpdateIssue}
                     deleteProject={handleDeleteProject}
                 />
             ))}

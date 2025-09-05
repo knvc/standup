@@ -20,7 +20,7 @@ function ProjectAdd({addIssue}) {
                     onClickCancel={() => setIsEditing(false)}
                 />
             ) : (
-                <button onClick={() => setIsEditing(true)}>add item</button>
+                <button onClick={() => setIsEditing(true)}>add project</button>
             )}
         </>
     )

@@ -8,6 +8,7 @@ function ProjectView({name, url, onClickEdit, onClickDelete}) {
             )}
             <button onClick={() => onClickEdit()}>edit</button>
             <button onClick={() => onClickDelete()}>delete</button>
+            <button onClick={() => console.log()}>add issue</button>
         </div>
     )
 }
